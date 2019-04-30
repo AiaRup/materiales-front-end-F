@@ -10,6 +10,7 @@
 - [EJERCICIO 1](#ejercicio-1)
 - [EJERCICIO 2](#ejercicio-2)
 - [EJERCICIO 3](#ejercicio-3)
+- [EJERCICIO 4](#ejercicio-4)
 
 <!-- /TOC -->
 
@@ -44,7 +45,7 @@ class RandomInteger extends React.Component {
     const { maxValue } = props;
 
     this.state = {
-      number: generateRandomInteger(maxValue)
+      number: generateRandomInteger(maxValue),
     };
   }
 
@@ -69,7 +70,7 @@ class BipolarButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      styling: "info"
+      styling: 'info',
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -78,7 +79,7 @@ class BipolarButton extends React.Component {
   handleClick() {
     // Nuestra función escuchadora del evento click
     this.setState({
-      styling: "danger"
+      styling: 'danger',
     });
   }
 
@@ -104,7 +105,7 @@ class BipolarButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      styling: "info"
+      styling: 'info',
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -113,14 +114,14 @@ class BipolarButton extends React.Component {
   handleClick() {
     this.setState((prevState, props) => {
       let nextStyling;
-      if (prevState.styling === "info") {
-        nextStyling = "danger";
+      if (prevState.styling === 'info') {
+        nextStyling = 'danger';
       } else {
-        nextStyling = "info";
+        nextStyling = 'info';
       }
 
       return {
-        styling: nextStyling
+        styling: nextStyling,
       };
     });
   }
@@ -142,7 +143,7 @@ También se puede usar una _arrow function_ más corta y, en este caso, un opera
 
 ```js
 this.setState((prevState, props) => ({
-  styling: prevState.styling === "info" ? "danger" : "info"
+  styling: prevState.styling === 'info' ? 'danger' : 'info',
 })); // este doble paréntesis se suele olvidar de primeras
 ```
 
@@ -152,15 +153,35 @@ this.setState((prevState, props) => ({
 
 #### EJERCICIO 1
 
+**Mostrando info relacionada**
+
+Vamos a partir de una web sencilla con un input de tipo texto y un párrafo vacío. ¿Seremos capaces de hacer que con React y el estado, cuando modificamos el input aparezca el texto en el párrafo?
+
+---
+
+#### EJERCICIO 2
+
+**El cuadrado parpadeante**
+
+Vamos a crear una página con una cuadrado de tamaño fijo (por ejemplo un `div`) con un color de fondo azul. Vamos a hacer que al hacer clic sobre el cuadrado, su color de fondo cambie a rojo. Si volvemos a hacer clic, pasa de nuevo a azul, y así sucesivamente. Vamos a implementar este cuadrado parpadeante usando el estado del componente (podemos almacenar el color o un booleano).
+
+> PISTA: Al escuchar el evento de clic para comprobar de qué color estaba anteriormente el cuadrado, usaremos la versión de `setState` que toma como parámetro el `prevState`
+
+---
+
+#### EJERCICIO 3
+
 **Qué hora será**
 
 Hace unas semanas, la empresa Time2Sleep nos encargó una página que mostrase sus ejercicios de relajación orientados a agilizar el sueño. Después de publicarla, recibieron _feedback_ de sus usuarios: se quedaban tan profundamente dormidos que, al despertar, no recordaban ni su nombre. Como quedaron muy contentos con el trabajo (literalmente: _"¡cómo nos flipan estas adalabers!"_), ahora nos han pedido una evolutiva, que es como se llama a las funcionalidades que se añaden a un proyecto ya hecho, para que añadamos un reloj a la web. Así sus usuarios sabrán al menos qué hora es.
 
 Vamos a crear un componente reloj (`Clock`) que nos muestre la hora en cada momento. Tendrá un método `updateClock()` en el componente para actualizar el estado con `setState(/* objeto */)`, que actualizará la hora con `new Date()`. En el constructor del componente declararemos un `setInterval()` que ejecute `updateClock` cada segundo.
 
+> PISTA: para obtener la información de la hora con un objeto de tipo fecha, podemos usar los métodos `getHours`, `getMinutes` y `getSeconds` como se explica en [la página de MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)
+
 ---
 
-#### EJERCICIO 2
+#### EJERCICIO 4
 
 **Contador de ovejas**
 
@@ -187,7 +208,7 @@ Si usásemos un valor de `this.state` después de llamar a `setState()`, podría
 ```js
 this.setState(
   {
-    mensaje: "nuevo mensaje"
+    mensaje: 'nuevo mensaje',
   },
   () => {
     console.log(this.state.mensaje); // 'nuevo mensaje'
@@ -199,13 +220,41 @@ El `callback` se ejecutará justo después de que el cambio de estado haya tenid
 
 ---
 
-#### EJERCICIO 3
+#### EJERCICIO 5
 
 **Contador de ovejas avanzado**
 
 Sobre el componente cuentaovejas (`SheepCounter`) del ejercicio anterior, añadimos la funcionalidad de que, además de mostrar el número de ovejas, muestra también la imagen de una oveja. Por ejemplo, si el contador está en 6, además de aparecer el número 6 veremos 6 imágenes de ovejas.
 
 > Podéis usar esta imagen por ejemplo: http://www.clker.com/cliparts/e/4/8/7/13280460782141411990Cartoon%20Sheep.svg.hi.png
+
+---
+
+#### EJERCICIO 6
+
+**Info del usuario**
+
+Vamos a partir de un objeto con información de un usuario que tenemos en el estado de nuestro componente. Lo vamos a inicializar a este valor directamenete en el constructor.
+
+```js
+{
+  firstName: 'Ada',
+  lastName: 'Lovelace',
+  birdthDate: {
+    day: 10,
+    month: 'diciembre',
+    year: 1815
+  }
+}
+```
+
+Vamos a crear un formulario donde vamos a poder modificar estos campos del estado.
+
+> NOTA: Cuidado al modificar los campos anidados dentro del objeto `birdthDate`; para modificarlos es muy útil usar en el `setState` el operador spread `...` para mantener el resto de datos de ese objeto. Por ejemplo:
+
+```js
+this.setState((prevState, props) => ({ ...prevState.birthDate, day: 8 }));
+```
 
 ---
 
